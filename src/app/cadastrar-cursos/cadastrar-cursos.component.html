@@ -1,0 +1,66 @@
+<h5>Cadastro de Cursos</h5>
+<p>Preencha os campos para incluir um curso</p>
+
+
+<form [formGroup]="formCadastro" (ngSubmit)="onSubmit()">
+
+<div *ngIf="mensagem" class="mb-3 alert alert-primary">
+   <strong>{{mensagem}}</strong>
+</div>
+
+    <div class="col-md-12">
+      <label>Descrição</label>
+      <input type="text" class="form-control" formControlName="descricao"/>
+      <div class="text-danger" *ngIf="form.descricao.touched && form.descricao.invalid">
+        <span *ngIf="form.descricao.errors.required">
+          Por favor, informe a descrição!
+        </span>
+      </div>
+    </div>
+
+<div class="row mb-3"></div>
+    <div class="col-md-3">
+      <label>Quantidade de Alunos</label>
+      <input type="number" class="form-control" formControlName="qtdAluno"/>
+      <div class="text-danger" *ngIf="form.qtdAluno.touched && form.qtdAluno.invalid">
+        <span *ngIf="form.qtdAluno.errors.required">
+          Por favor, informe a quantidade de alunos!
+        </span>
+      </div>
+    </div>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <div class="col-md-3">
+      <label class="quebra">Data de Abertura:</label>
+      <input type="date" name="f_date" class="form-control" formControlName="dataAbertura"/>
+      <div class="text-danger" *ngIf="form.dataAbertura.touched && form.dataAbertura.invalid">
+        <span *ngIf="form.dataAbertura.errors.required">
+          Por favor, informe a data de abertura!
+        </span>
+      </div>
+    </div>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+  <div class="col-md-3">
+    <label>Data de Encerramento:</label>
+    <input type="date" name="f_date" class="form-control" formControlName="dataFechamento"/>
+    <div class="text-danger" *ngIf="form.dataFechamento.touched && form.dataFechamento.invalid">
+      <span *ngIf="form.ddataFechamento.errors.required">
+        Por favor, informe a data de fechamento!
+      </span>
+    </div>
+  </div>
+  <br>
+  <div class="form-group col-md-3">
+    <label for="sel1">Categoria:</label>
+    <select class="form-control" id="sel1" formControlName="categoria">
+      <option *ngFor="let categoria of categorias" value="{{categoria.id}}">{{categoria.nome}}</option>
+    </select>
+  </div>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <div class="row mb-3">
+    <div class="col-md-12">
+      <input type="submit" [disabled]="!formCadastro.valid" class="btn btn-success" value="Realizar Cadastro"/>
+      &nbsp;
+    </div>
+  </div>
+</form>

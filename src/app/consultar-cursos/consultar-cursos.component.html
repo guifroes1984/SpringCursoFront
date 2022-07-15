@@ -1,0 +1,97 @@
+<h5>Consulta de Cursos</h5>
+<p>Listagem de cursos cadastrados</p>
+
+<!--a tabela vai ter cabecalho, corpo e rodapé-->
+
+<form [formGroup]="formPeriodo" (ngSubmit)="onSubmit()">
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <label for="">Descrição</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="descricao"
+      />
+      <div
+        class="text-danger"
+        *ngIf="form.descricao.touched && form.descricao.invalid"
+      >
+        <span *ngIf="form.descricao.errors.required">
+          Informe a descrição
+        </span>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <label for="">Data de Inicio</label>
+      <input type="date" class="form-control" formControlName="dataAbertura" />
+      <div
+        class="text-danger"
+        *ngIf="form.dataAbertura.touched && form.dataAbertura.invalid"
+      >
+        <span *ngIf="form.dataAbertura.errors.required">
+          Informe a Data de Inicio
+        </span>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <label for="">Data de Término</label>
+      <input type="date" class="form-control" formControlName="dataFechamento" />
+      <div
+        class="text-danger"
+        *ngIf="form.dataFechamento.touched && form.dataFechamento.invalid"
+      >
+        <span *ngIf="form.dataFechamentoerrors.required">
+          Informe a Data de Término
+        </span>
+      </div>
+    </div>
+
+    <div class="row mb-3" style="margin-top: 1%">
+      <div class="col-md-12">
+        <input
+          type="submit"
+          [disabled]="!formPeriodo.valid"
+          class="btn btn-success"
+          value="Consultar"
+        />
+      </div>
+    </div>
+
+    <form></form>
+  </div>
+</form>
+
+<table class="table table-striped table-alert">
+  <thead>
+    <tr>
+      <td>Data de Abertura</td>
+      <td>Data de Fechamento</td>
+      <td>Categoria</td>
+      <td>Descrição</td>
+      <td>Quantidade de aluno</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let c of curso">
+      <td>{{ c.dataAbertura | date: "dd/MM/yyyy" }}</td>
+      <td>{{ c.dataFechamento | date: "dd/MM/yyyy" }}</td>
+      <td>{{ c.categoria.nome  }}</td>
+      <td>{{ c.descricao  }}</td>
+      <td>{{ c.qtdAluno  }}</td>
+      <td>
+        <button class="btn btn-primary" [routerLink]="['/editar-cursos', c.idCurso]">Editar</button>
+        &nbsp;
+        <button class="btn btn-danger" (click)="excluir(c.idCurso)">Excluir</button>
+        &nbsp;
+        <button class="btn btn-primary" [routerLink]="['/cadastrar-cursos']">Voltar</button>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="6">Total de registros :{{ curso.length }}</td>
+    </tr>
+  </tfoot>
+</table>
